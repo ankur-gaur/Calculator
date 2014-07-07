@@ -10,6 +10,7 @@ var separators = ['\\\+', '-', '\\\(', '\\\)', '\\*', '/'];
 var operators = ['+','-','*','/','(',')'];
 var index;
 var k=0,prev;
+var storedInputs;
 
 function decide_brak()
 {
@@ -55,7 +56,7 @@ function getinput(elem)
   //alert(current_pos);
    del_prev(str,current_pos-1);
    index=localStorage.index_current-1;
- } 
+  } 
   
   else if(elem=="()")
   {
@@ -85,14 +86,18 @@ function resetHistory()
 {
   localStorage.index_current=0;
 
+  index=localStorage.index_current;
+
   localStorage.inputs="";
+
+  document.getElementById("display").value="";
 
 }
 
 function getPreviousTransaction()
 {
   
-  var storedInputs = JSON.parse(localStorage["inputs"]);
+  storedInputs = JSON.parse(localStorage["inputs"]);
   
   document.getElementById("display").value=storedInputs[index];
 
@@ -136,8 +141,9 @@ function isOperator(arr,obj)
 //Localstorage and String generation.
 function createString()
 { 
-   
-   inputs[localStorage.index_current]=document.getElementById("display").value;
+   index=localStorage.index_current;
+
+   inputs[index]=document.getElementById("display").value;
    
    localStorage["inputs"] = JSON.stringify(inputs);  
    
